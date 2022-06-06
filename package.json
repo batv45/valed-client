@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "start": "node .output/server/index.mjs",
+    "allupdate": "yarn upgrade-interactive"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "5.0.4",
+    "autoprefixer": "10.4.7",
+    "nuxt": "3.0.0-rc.3",
+    "postcss-custom-properties": "12.1.7",
+    "sass": "1.51.0",
+    "sass-loader": "12.6.0",
+    "tailwindcss": "3.0.24"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.18.3",
+    "@headlessui/vue": "1.6.1",
+    "@heroicons/vue": "1.0.6",
+    "@pinia/nuxt": "0.1.9",
+    "@tailwindcss/aspect-ratio": "0.4.0",
+    "@tailwindcss/forms": "0.5.1",
+    "@tailwindcss/line-clamp": "0.4.0",
+    "@tailwindcss/typography": "0.5.2",
+    "add": "^2.0.6",
+    "axios": "^0.27.2",
+    "coloquent": "^3.0.1-beta",
+    "pinia": "2.0.14",
+    "redaxios": "^0.5.0",
+    "vue-api-query": "^1.9.1",
+    "vue-tabler-icons": "^2.6.0"
+  },
+  "engines": {
+    "node": "^16.11.0 || ^17.0.0 || || ^18.0.0"
+  },
+  "packageManager": "yarn@3.2.0"
+}
