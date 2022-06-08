@@ -6,7 +6,7 @@ export default defineNuxtConfig({
         VALED_API_ENDPOINT: process.env.VALED_API_ENDPOINT,
     },
     modules: [
-        '@nuxtjs/tailwindcss'
+        '@nuxtjs/tailwindcss',
     ],
     css: [
         '@/assets/css/tailwind.css',

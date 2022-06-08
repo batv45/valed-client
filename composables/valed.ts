@@ -1,6 +1,31 @@
 import {sendRedirect} from "h3";
 export const useValedCookie = (opt=null) => useCookie('valed_token',opt)
 
+export const valedUseFetch = (url: string, fetchOptions: any = {}) => {
+    const { VALED_BASE_URL } = useRuntimeConfig()
+    return useFetch(url,{
+        baseURL: VALED_BASE_URL,
+        ...fetchOptions,
+        headers: {
+            Accept: 'application/vnd.api+json',
+            Authorization: `Bearer ${useValedCookie().value}`,
+            ...fetchOptions.headers,
+        }
+    })
+}
+export const valedUseFetchApi = (url: string, fetchOptions: any = {}) => {
+    const { VALED_BASE_URL,VALED_API_ENDPOINT } = useRuntimeConfig()
+    return useFetch(url,{
+        baseURL: VALED_BASE_URL+VALED_API_ENDPOINT,
+        ...fetchOptions,
+        headers: {
+            Accept: 'application/vnd.api+json',
+            Authorization: `Bearer ${useValedCookie().value}`,
+            ...fetchOptions.headers,
+        }
+    })
+}
+
 export const valedFetch = (url: string, fetchOptions: any = {}) => {
     const { VALED_BASE_URL } = useRuntimeConfig()
     return $fetch(url, {
