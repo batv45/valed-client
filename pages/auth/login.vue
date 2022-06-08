@@ -1,4 +1,6 @@
 <script lang="ts">
+const datem = Date.now()
+useValedCookie().value = 'BABA'
 
 import {LockClosedIcon} from "@heroicons/vue/solid";
 import {LoaderIcon} from "vue-tabler-icons";
@@ -17,15 +19,22 @@ export default {
   setup(){
     const login = valedLogin
     const process = ref('')
+    const errors = ref([])
     const email = ref('asd@asd.com')
     const pass = ref('123')
     function submitLogin(){
       process.value = 'login'
       valedLogin(email.value,pass.value)
+          .catch(({data}) => {
+            if(data.hasOwnProperty('errors') && data.errors.length ){
+              errors.value = data.errors
+            }
+          })
+          .finally( () => process.value = null)
     }
 
     return {
-      login,process,email,pass,submitLogin
+      login,process,email,pass,submitLogin,errors
     }
   }
 }
@@ -39,14 +48,12 @@ export default {
         <h2 class="mt-6 text-center text-3xl font-light text-gray-700">Kullanıcı Girişi</h2>
       </div>
       <div class="p-4 pt-2 bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="mb-2 text-red-500">
+          <p v-for="error in errors">{{ error.detail }}</p>
+        </div>
         <form class="space-y-6" @submit.prevent="submitLogin">
         <div class="rounded-md shadow-sm flex flex-col space-y-4">
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">E-Posta</label>
-            <div class="mt-1">
-              <input type="email" v-model="email" name="email" id="email" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="E-Posta adresiniz" aria-describedby="email-description" />
-            </div>
-          </div>
+          <form-input label="E-Posta" v-model="email" placeholder="E-Posta adresiniz" :error="errors.email"></form-input>
           <div class="">
             <label for="password" class="block text-sm font-medium text-gray-700">Şifre</label>
             <div class="mt-1">

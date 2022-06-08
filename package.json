@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "5.0.4",
+    "@types/uuid": "^8.3.4",
     "autoprefixer": "10.4.7",
     "nuxt": "3.0.0-rc.3",
     "postcss-custom-properties": "12.1.7",
@@ -29,6 +30,7 @@
     "coloquent": "^3.0.1-beta",
     "pinia": "2.0.14",
     "redaxios": "^0.5.0",
+    "uuid": "^8.3.2",
     "vue-api-query": "^1.9.1",
     "vue-tabler-icons": "^2.6.0"
   },

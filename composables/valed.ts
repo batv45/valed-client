@@ -1,5 +1,5 @@
 import {sendRedirect} from "h3";
-export const useValedCookie = () => useCookie('valed_token')
+export const useValedCookie = (opt=null) => useCookie('valed_token',opt)
 
 export const valedFetch = (url: string, fetchOptions: any = {}) => {
     const { VALED_BASE_URL } = useRuntimeConfig()
@@ -46,7 +46,7 @@ export const useValedUser = async () => {
 export const valedLogin = (email,password) => {
     if (process.client) {
         const cookie = useValedCookie()
-        valedFetch('/login', {
+        return valedFetch('/login', {
             method:'POST',
             body:{
                 'email': email,
