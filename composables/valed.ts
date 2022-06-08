@@ -41,8 +41,6 @@ export const useValedUser = async () => {
     return user
 }
 
-
-
 export const valedLogin = (email,password) => {
     if (process.client) {
         const cookie = useValedCookie()
@@ -53,6 +51,30 @@ export const valedLogin = (email,password) => {
                 'password': password
             }
         }).then(response => {
+            if( response && response.hasOwnProperty('token') ){
+                // @ts-ignore
+                cookie.value = response.token
+                window.location.replace('/')
+                // window.location.replace(
+                //     `/api/cookie?token=${response.token}`
+                // )
+            }
+        })
+    }
+}
+
+export const valedRegister = (name,email,password) => {
+    if (process.client) {
+        const cookie = useValedCookie()
+        return valedFetch('/register', {
+            method:'POST',
+            body:{
+                'name': name,
+                'email': email,
+                'password': password
+            }
+        }).then(response => {
+            console.log(response,'REGİSTER RESON')
             if( response && response.hasOwnProperty('token') ){
                 // @ts-ignore
                 cookie.value = response.token

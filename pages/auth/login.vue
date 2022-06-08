@@ -1,6 +1,4 @@
-<script lang="ts">
-const datem = Date.now()
-useValedCookie().value = 'BABA'
+<script lang="ts"> 
 
 import {LockClosedIcon} from "@heroicons/vue/solid";
 import {LoaderIcon} from "vue-tabler-icons";
@@ -71,7 +69,7 @@ export default {
           </div>
 
           <div class="text-sm">
-            <a href="#" class="font-medium text-gray-600 hover:text-gray-500"> Şifremi unuttum </a>
+            <NuxtLink href="/auth/register" class="font-medium text-gray-600 hover:text-gray-500"> Şifremi unuttum </NuxtLink>
           </div>
         </div>
 

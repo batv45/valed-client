@@ -31,7 +31,7 @@ export default defineNuxtConfig({
                 '@headlessui/vue', '@heroicons/vue/solid', '@heroicons/vue/outline', 'vue', 'pinia', 'ufo','vue-tabler-icons','coloquent'
             ],
             exclude: [
-                 'redaxios'
+                 'redaxios','uuid'
             ]
         }
     }
