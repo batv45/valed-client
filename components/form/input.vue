@@ -16,8 +16,10 @@
                :value="modelValue"
                @input="$emit('update:modelValue', $event.target.value)"/>
       <div v-if="error" class="invalid-feedback">{{ error }}</div>
-      <small v-if="hint" class="form-hint">
-        <span v-html="hint"></span></small></div>
+        <small v-if="hint" class="form-hint">
+          <span v-html="hint"></span>
+        </small>
+      </div>
   </div>
 </template>
 
