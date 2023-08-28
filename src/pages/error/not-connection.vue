@@ -6,7 +6,7 @@ import useNotyf from '~/utils/useNotyf.ts'
 useHead({
   title: 'Error Connection',
 })
-useNotyf.error('Sunucu bağlantı hatası.')
+useNotyf.error('Sunucu bağlantı hatası!')
 </script>
 
 <template>
