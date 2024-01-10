@@ -24,7 +24,6 @@ const form_invoice = reactive({
 })
 
 async function submitCreate() {
-  api.jsonApi.plural.
   const res = await api.jsonApi.create('sales-invoices', form_invoice.data)
 }
 </script>

@@ -11,16 +11,22 @@ import useNotyf from '~/utils/useNotyf.ts'
 import { useApiStore } from '~/stores/useApi.ts'
 
 const company = ref()
+const process = ref()
 const useApi = useApiStore()
 onMounted(async () => {
+  await loadCompany()
+})
+async function loadCompany() {
   try {
+    process.value = 'contacts-load'
     company.value = await useApi.jsonApi.get(`companies/${router.currentRoute.value.params.company}`, { params: { include: 'contacts,accounts' } })
   }
   catch (e) {
     if (e.response.status === 404)
       router.push('/').then(() => useNotyf.error('Firma bilgisi bulunamadı!'))
   }
-})
+  process.value = null
+}
 function deleteCompany() {
   useConfirm('Bu firma bilgisini silmek istediğinize emin misiniz?').then(async (r) => {
     if (r.isConfirmed) {
@@ -33,6 +39,9 @@ function deleteCompany() {
       }
     }
   })
+}
+function contactCreated() {
+  loadCompany()
 }
 </script>
 
@@ -55,7 +64,19 @@ function deleteCompany() {
 
     <div class="row">
       <div class="col-md-6">
-        <ContactList :contacts="company?.data.contacts" />
+        <div v-if="process === 'contacts-load'" class="card placeholder-glow">
+          <div class="card-body text-center " style="min-height: 20rem;">
+            <h1 class="bg-dark-lt">
+              Contact Bilgisi Yükleniyor<span class="animated-dots" />
+            </h1>
+          </div>
+        </div>
+        <ContactList
+          v-else-if="company?.data"
+          :contacts="company?.data.contacts"
+          :company="company.data"
+          @created="contactCreated"
+        />
       </div>
       <div class="col-md-6">
         <AccountList :accounts="company?.data.accounts" />

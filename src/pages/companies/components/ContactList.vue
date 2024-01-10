@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IconCheck, IconPlus } from '@tabler/icons-vue'
+import { IconCheck, IconPlus, IconRefresh } from '@tabler/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import RowEmpty from '~/components/RowEmpty.vue'
@@ -11,9 +11,13 @@ import Button from '~/components/form/Button.vue'
 
 import { useApiStore } from '~/stores/useApi.ts'
 
-defineProps({
+const props = defineProps({
   contacts: Object,
+  company: Object,
 })
+const emit = defineEmits<{
+  (e: 'created')
+}>()
 const router = useRouter()
 const modalContactForm = ref()
 const api = useApiStore()
@@ -21,6 +25,12 @@ const form_contact = reactive({
   data: {
     name: null,
     description: null,
+    company: {
+      data: {
+        type: 'companies',
+        id: props.company.id,
+      },
+    },
   },
   errors: {},
   processing: false,
@@ -31,6 +41,10 @@ function showContact() {
 async function createContact() {
   try {
     const res = await api.jsonApi.create('contacts', form_contact.data)
+    modalContactForm.value.hide()
+    form_contact.data.name = null
+    form_contact.data.description = null
+    emit('created')
     console.log('contact res: ', res)
   }
   catch (e) {
@@ -42,6 +56,7 @@ async function createContact() {
 
 <template>
   <div class="card">
+    <pre>{{ form_contact.errors }}</pre>
     <div class="card-header">
       <h3 class="card-title">
         Cari Hesaplar
@@ -49,6 +64,7 @@ async function createContact() {
 
       <div class="card-actions">
         <a v-tooltip="'bottom'" href="#" title="Yeni cari hesap ekle" class="btn-action" @click.prevent="showContact"><IconPlus /></a>
+        <a href="#" class="btn-action" @click.prevent="emit('created')"><IconRefresh /></a>
       </div>
     </div>
 
